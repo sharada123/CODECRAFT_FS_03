@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block 'main' %}
+<div class="container">
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-3 mt-5 me-2">
+            <div class="card fw-bold" style="width: 18rem;">
+                <img src="{{product.image.url}}" class="card-img-top" alt="{{product.product_name}} image" height="250">
+                <div class="card-body">
+                  <p class="card-title">Product Name:&nbsp;{{product.product_name}}</p>
+                  <p class="card-text">Price:&nbsp;{{product.price}}/-</p>
+                  {% if product.id %}
+    <a href="{% url 'product_detail' product.id %}" class="btn btn-dark">View Details</a>
+{% else %}
+    <span>No details available</span>
+{% endif %}
+                </div>
+              </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock 'main' %}
