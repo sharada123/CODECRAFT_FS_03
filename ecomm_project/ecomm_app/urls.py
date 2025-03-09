@@ -13,6 +13,8 @@ urlpatterns = [
     path('cart',views.cart,name='cart'),
     path('add_to_cart',views.add_to_cart,name='add_to_cart'),
     # path('add_to_cart/<int:product_id>',views.add_to_cart,name='add_to_cart'),
+    path('category/<str:category_name>/', views.category_wise_product, name='category_wise_product'),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

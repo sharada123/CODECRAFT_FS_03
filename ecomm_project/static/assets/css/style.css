@@ -1,0 +1,16 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.image-round{
+    border-radius: 100%;
+    border: 1px gray solid;
+    box-shadow:2px -3px 6px black;
+}
+.anchor_tag{
+    text-decoration: none;
+    color: black;
+}
+.card-shadow{
+    box-shadow:2px -3px 6px black;
+}

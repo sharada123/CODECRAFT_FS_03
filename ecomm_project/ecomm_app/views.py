@@ -1,14 +1,25 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import CustomUser,Products
+from .models import CustomUser,Products,CoverImage
 from django.http import HttpResponse
 from .forms import RegistrationForm,LoginForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth import login,logout,authenticate
+
 # Create your views here.
 def home(request):
+    categories = {
+    "Mobile": "assets/images/mobile.jpg",
+    "Clothes": "assets/images/clothes.jpg",
+    "Books": "assets/images/books.jpg",
+    "Kitchen Appliances": "assets/images/kitchen.jpg",
+    "Home Decoration": "assets/images/home.jpg",
+    "Makeup": "assets/images/makeup.jpg",
+    }
     products=Products.objects.all()
-    return render(request, 'home.html',{'products':products})
+    cover_images=CoverImage.objects.all()
+    request.session['categories'] =categories
+    return render(request, 'home.html',{'products':products,'categories':categories,'covers':cover_images})
 
 def about_us(request):
     return render(request, 'about.html')
@@ -88,3 +99,12 @@ def product_detail(request,id):
 
 def add_to_cart(request):
     return HttpResponse("adderd to cart")
+
+def category_wise_product(request, category_name):
+    products = Products.objects.filter(category=category_name)  # Assuming category is a ForeignKey in Product model
+    categories=request.session.get('categories')
+    covers=CoverImage.objects.all()
+    if products:
+        return render(request, 'home.html', {'products': products,'categories': categories,'covers':covers})
+    else:
+        return render(request, 'home.html', {'errmsg': "No Products found in this category",'categories': categories,'covers': covers})

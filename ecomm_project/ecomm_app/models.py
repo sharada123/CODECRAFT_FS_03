@@ -21,3 +21,8 @@ class Products(models.Model):
     stock=models.IntegerField(default=0)
     cat=(('Electronics','Electronics'),('Clothes','Clothes'),('Books','Books'),('Kitchen Appliances','Kitchen Appliances'),('Home Decoration','Home Decoration'),('Makeup','Makeup'),('Mobile','Mobile'),('Hair care','Hair care'),)
     category=models.CharField(max_length=50,choices=cat)
+
+class CoverImage(models.Model):
+    image=models.ImageField(upload_to='cover_images/')
+    def __str__(self):
+        return self.image.name
