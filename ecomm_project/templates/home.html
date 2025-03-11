@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <div class="row mt-1">
         <div class="col-md-12">
-            <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+            <div id="carouselExampleInterval" class="carousel slide card-shadow" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     {% for image in covers %}
                   <div class="carousel-item active" data-bs-interval="2000">
@@ -26,6 +26,10 @@
    
   <div class="row">
     <div class="col-md-12 mt-5 d-flex justify-content-between">
+      <div><a href="{% url 'home'  %}" class="anchor_tag">
+        <img class="image-round me-2" src="{% static 'assets/images/all.jpg' %}" width="60" height="60" />
+        <div class=" ms-3 fw-bold">All</div>
+      </a></div>
         {% for category, image in categories.items %}
         <div>
           <a href="{% url 'category_wise_product' category|slugify %}" class="anchor_tag">
@@ -33,7 +37,9 @@
             <div class=" fw-bold">{{ category }}</div>
           </a>
         </div>
+        
         {% endfor %}
+        
       </div>
   </div>
   <div class="row">
@@ -46,8 +52,8 @@
   <div class="row">
     {% for product in products %}
     
-    <div class="col-md-3 mt-5">
-      <div class="card fw-bold card-shadow " style="width: 100%">
+    <div class="col-md-3 mt-5 mb-5">
+      <div class="card fw-bold card-shadow mb-5 " style="width: 100%">
         <img
           src="{{product.image.url}}"
           class="card-img-top"
@@ -56,7 +62,8 @@
         />
         <div class="card-body">
           <p class="card-title">Product Name:&nbsp;{{product.product_name}}</p>
-          <p class="card-text">Price:&nbsp;{{product.price}}/-</p>
+          <p class="card-text">Price:&nbsp; &#8377;{{product.price}}/-</p>
+          <small class="text-danger">Hurry Up {{product.stock}}  items left</small>
           {% if product.id %}
           <a href="{% url 'product_detail' product.id %}" class="btn btn-dark"
             >View Details</a

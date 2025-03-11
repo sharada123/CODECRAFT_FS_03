@@ -3,8 +3,11 @@ from django import forms
 class RegistrationForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ['username','email','password','confirm_password','mobile','appartment','street','area','pincode']
-        widgets={'username':forms.TextInput(attrs={'class':'form-control mt-2 ','placeholder':'username'}),
+        fields = ['first_name','last_name','username','email','password','confirm_password','mobile','appartment','street','area','pincode']
+        widgets={
+                'first_name':forms.TextInput(attrs={'class':'form-control mt-2 ','placeholder':'First Name'}),
+                'last_name':forms.TextInput(attrs={'class':'form-control mt-2 ','placeholder':'Last Name'}),
+                'username':forms.TextInput(attrs={'class':'form-control mt-2 ','placeholder':'username'}),
                 'email':forms.EmailInput(attrs={'class':'form-control mt-2 ','placeholder':'email'}),
                 'password':forms.PasswordInput(attrs={'class':'form-control mt-2 ','placeholder':'password'}),
                 'confirm_password':forms.PasswordInput(attrs={'class':'form-control mt-2 ','placeholder':'confirm password'}),

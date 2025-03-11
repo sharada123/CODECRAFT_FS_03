@@ -10,8 +10,9 @@ urlpatterns = [
     path('login',views.login_view,name='login'),
     path('logout',views.logout_view,name='logout'),
     path('<int:id>/',views.product_detail,name='product_detail'),
-    path('cart',views.cart,name='cart'),
-    path('add_to_cart',views.add_to_cart,name='add_to_cart'),
+    path('viewcart',views.viewcart,name='viewcart'),
+    path('add_to_cart/<int:pid>/',views.add_to_cart,name='add_to_cart'),
+    path('buy',views.buy,name='buy'),
     # path('add_to_cart/<int:product_id>',views.add_to_cart,name='add_to_cart'),
     path('category/<str:category_name>/', views.category_wise_product, name='category_wise_product'),
 

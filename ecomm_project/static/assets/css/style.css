@@ -2,6 +2,9 @@
     margin: 0;
     padding: 0;
 }
+body{
+    font-family: "Poppins", sans-serif;
+}
 .image-round{
     border-radius: 100%;
     border: 1px gray solid;
@@ -12,5 +15,11 @@
     color: black;
 }
 .card-shadow{
-    box-shadow:2px -3px 6px black;
+    /* box-shadow:2px -3px 6px black; */
+    box-shadow: 0px 0px 6px 3px  black;
+}
+.footer{
+    position: sticky;
+    bottom: 0;
+    width: 100%;
 }

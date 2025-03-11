@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser,Products,CoverImage
+from .models import CustomUser,Products,CoverImage,Cart
 # Register your models here.
 class CustomUserAdmin(admin.ModelAdmin):
     class Meta:
@@ -14,6 +14,11 @@ class CoverImageAdmin(admin.ModelAdmin):
     class Meta:
         model = CoverImage
         list_display=['id','image']
+class CartAdmin(admin.ModelAdmin):
+    class Meta:
+        model = Cart
+        list_display=['id','user','product','quantity']
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Products, ProductsAdmin)
 admin.site.register(CoverImage,CoverImageAdmin)
+admin.site.register(Cart, CartAdmin)

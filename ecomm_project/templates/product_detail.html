@@ -18,9 +18,18 @@
                     <div class="card-body">
                       <p class="card-title fw-bold">Product Name:&nbsp;{{product.product_name}}</p>
                       <p>Product description:&nbsp;{{product.description}}</p>
-                        <p>Price:&nbsp;{{product.price}}</p>
-                      <a href="{% url 'add_to_cart' %}" class="btn btn-primary">Add To Cart</a>
-                      <a href="{% url 'cart'  %}" class="btn btn-primary">View Cart</a>
+                      <p>Useful For:&nbsp;{{product.useful_for_who}}</p>
+                        <p>Price:&nbsp;  &#8377;{{product.price}}</p>
+                      <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary">Add To Cart</a>
+                      <a href="{% url 'viewcart' %}" class="btn btn-primary">View Cart</a>
+                      <a href="{% url 'buy'  %}" class="btn btn-primary">Buy Now</a>
+                      &nbsp;&nbsp;<small class="text-danger fw-bold">Hurry Up {{product.stock}}  items left</small>
+                      {% if success_message or error_message %}
+                      <div id="alert-box" class="alert alert-dismissible mt-3 {% if success_message %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+                          {{ success_message }}{{ error_message }}
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                      {% endif %}
                     </div>
                   </div>
         </div>

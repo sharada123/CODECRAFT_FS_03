@@ -1,1 +1,91 @@
-cart page
+{% extends 'base.html' %}
+{% load static %}
+{% block 'main' %}
+<div class="container">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="card text-dark bg-warning w-75 mt-5">
+          <div class="card-header fw-bold">Customer Information</div>
+          <div class="card-body">
+            <h5 class="card-title">Name:&nbsp;{{request.user.first_name|capfirst}}&nbsp;{{request.user.last_name|capfirst}}</h5>
+            <p class="card-text fw-bold">Email Address:&nbsp;{{request.user.email}} <br>
+                Mobile Number:&nbsp;{{request.user.mobile}} <br>
+                Address:&nbsp;
+              {% if request.user.appartment %}
+              {{request.user.appartment|title}},
+              {% endif %}
+              {% if request.user.street %}
+              {{ request.user.street|title}},
+              {% endif %} <br>
+              
+                {% if request.user.area %}
+              {{  request.user.area|title}},
+              {% endif %}
+              {% if request.user.pincode %}
+              {{  request.user.pincode}},
+              {% endif %}
+             
+              
+            </p>
+            
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="card text-dark bg-warning mb-3 mt-5">
+        <div class="card-header fw-bold">Payment Information</div>
+        <div class="card-body">
+          <h5 class="card-title">Total (5 items) :&nbsp; &#8377;5000</h5>
+          <h5 class="card-title">Total Amount :&nbsp; &#8377;5000</h5>
+          <a href="#" class="btn btn-dark">Place Order</a>
+        </div>
+      </div></div>
+    </div>  
+    <hr class="fw-bold text-primary">
+    <div class="row">
+      {% if products %}
+        {% for item in products %}
+       
+        <div class="col-md-6">
+              <div class="card mb-3" style="max-width: 100%;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="{{item.pid.image.url}}" class="img-fluid rounded-start" alt="{{item.pid.product_name}} image"/>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">Product Name:&nbsp;{{item.pid.product_name}}</h5>
+                      <p class="card-text">Price :&nbsp; &#8377;{{item.pid.price}}</p>
+                      <p>Quantity:&nbsp;<div class="btn-group">
+                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          {{item.quantity}}
+                        </button>
+                        <ul class="dropdown-menu">
+                          {% for i in quantity_dropdown %}
+                            <li value="{{i}}"><a class="dropdown-item" href="#">{{ i }}</a></li>
+                          {% endfor %}
+                        </ul>
+                      </div></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+           
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="col-md-12 d-flex justify-content-center">
+          <div class="card text-dark bg-warning mb-3" style="max-width: 18rem;">
+            <div class="card-header fw-bold text-center">Cart</div>
+            <div class="card-body">
+              <h5 class="card-title ">Empty Cart</h5>
+              
+            </div>
+          </div>
+        </div>
+       
+        {% endif %}
+    </div>
+</div>
+
+{% endblock 'main' %}

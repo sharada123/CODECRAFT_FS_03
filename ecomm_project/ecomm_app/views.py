@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import CustomUser,Products,CoverImage
+from .models import CustomUser,Products,CoverImage,Cart
 from django.http import HttpResponse
 from .forms import RegistrationForm,LoginForm
 from django.contrib.auth.decorators import login_required
@@ -97,11 +97,33 @@ def product_detail(request,id):
     product = get_object_or_404(Products, id=id)  
     return render(request, 'product_detail.html',{'product':product})
 
-def add_to_cart(request):
-    return HttpResponse("adderd to cart")
+@login_required
+def add_to_cart(request, pid):
+    print("Adding function is called")
+    uid = request.user
 
+    try:
+        product = Products.objects.get(id=pid)
+    except Products.DoesNotExist:
+        return render(request, 'product_detail.html', {'error_message': 'Product not found'})
+    if Cart.objects.filter(Q(pid=product) & Q(uid=uid)).exists():
+        return render(request, 'product_detail.html', {'product': product, 'error_message': 'Product is already in the cart'})
+    # Add product to cart
+    Cart.objects.create(uid=uid, pid=product)
+    
+    return render(request, 'product_detail.html', {'product': product, 'success_message': 'Product added to cart'})
+
+@login_required
+def viewcart(request):
+    quantity_dropdown = [1,2,3,4,5,6,7,8,9,10]
+    cart_items = Cart.objects.filter(uid=request.user.id).select_related('pid')
+    user=CustomUser.objects.get(id=request.user.id)
+    print(cart_items)
+    return render(request, 'cart.html', {'products': cart_items,'quantity_dropdown': quantity_dropdown,'user':user})
+def buy(request):
+    return HttpResponse("Bought")
 def category_wise_product(request, category_name):
-    products = Products.objects.filter(category=category_name)  # Assuming category is a ForeignKey in Product model
+    products = Products.objects.filter(category=category_name)
     categories=request.session.get('categories')
     covers=CoverImage.objects.all()
     if products:
